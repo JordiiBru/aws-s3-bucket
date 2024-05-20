@@ -9,13 +9,13 @@ output "bucket_arn" {
 }
 
 output "zone_id" {
-    value = aws_s3_bucket.main_bucket.hosted_zone_id
+  value = aws_s3_bucket.main_bucket.hosted_zone_id
 }
 
 output "regional_domain" {
-    value = aws_s3_bucket.main_bucket.bucket_regional_domain_name
+  value = aws_s3_bucket.main_bucket.bucket_regional_domain_name
 }
 
 output "base_domain" {
-    value = aws_s3_bucket.main_bucket.bucket_domain_name
+  value = aws_s3_bucket.main_bucket.bucket_domain_name
 }

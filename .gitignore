@@ -2,7 +2,6 @@
 **/.terraform.lock.hcl
 **/*.zip
 **/backend.tf
-**/provider.tf
 
 # Created by https://www.toptal.com/developers/gitignore/api/terraform,terragrunt
 # Edit at https://www.toptal.com/developers/gitignore?templates=terraform,terragrunt

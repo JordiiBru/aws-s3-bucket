@@ -1,6 +1,6 @@
 locals {
-  bucket_naming     = "${var.stage}-${var.owner}-${var.purpose}"
-  bucket_visibility = (var.public || var.static_website)
+  bucket_naming     =  (var.force_name == "") ? "${var.stage}-${var.owner}-${var.purpose}" : var.force_name
+  bucket_visibility = !(var.public || var.static_website)
 }
 
 resource "aws_s3_bucket" "main_bucket" {
@@ -25,7 +25,7 @@ resource "aws_s3_bucket_public_access_block" "bucket_access_block" {
 
 # versioning
 resource "aws_s3_bucket_versioning" "bucket_versioning" {
-  count = length(var.versioning) > 0 ? 1 : 0
+  count = var.versioning ? 1 : 0
 
   bucket = aws_s3_bucket.main_bucket.id
 
@@ -36,7 +36,7 @@ resource "aws_s3_bucket_versioning" "bucket_versioning" {
 
 # policy
 resource "aws_s3_bucket_policy" "bucket_policy_for_static_website" {
-  count = length(var.static_website) > 0 ? 1 : 0
+  count = var.static_website ? 1 : 0
 
   bucket = aws_s3_bucket.main_bucket.id
   policy = data.aws_iam_policy_document.default_permissions.json
@@ -49,8 +49,8 @@ data "aws_iam_policy_document" "default_permissions" {
       identifiers = [aws_s3_bucket.main_bucket.id]
     }
     actions = [
-      "s3:GetObject",
-      "s3:ListBucket",
+      "s3:Get*",
+      "s3:List*"
     ]
     resources = [
       aws_s3_bucket.main_bucket.arn,
@@ -61,7 +61,7 @@ data "aws_iam_policy_document" "default_permissions" {
 
 # static website config
 resource "aws_s3_bucket_website_configuration" "bucket_statics" {
-  count = length(var.static_website) > 0 ? 1 : 0
+  count = var.static_website ? 1 : 0
 
   bucket = aws_s3_bucket.main_bucket.id
 
@@ -71,14 +71,5 @@ resource "aws_s3_bucket_website_configuration" "bucket_statics" {
 
   error_document {
     key = "error.html"
-  }
-
-  routing_rule {
-    condition {
-      key_prefix_equals = "www/"
-    }
-    redirect {
-      replace_key_prefix_with = ""
-    }
   }
 }
