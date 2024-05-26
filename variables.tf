@@ -55,7 +55,7 @@ variable "public" {
 variable "force_destroy" {
   description = "Allow destroying a bucket with objects inside"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "static_website" {
