@@ -5,6 +5,7 @@ locals {
 
 resource "aws_s3_bucket" "main_bucket" {
   bucket = local.bucket_naming
+  force_destroy = var.force_destroy
 
   tags = {
     terraform = true
