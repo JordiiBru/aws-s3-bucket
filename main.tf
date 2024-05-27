@@ -1,10 +1,10 @@
 locals {
-  bucket_naming     =  (var.force_name == "") ? "${var.stage}-${var.owner}-${var.purpose}" : var.force_name
+  bucket_naming     = (var.force_name == "") ? "${var.stage}-${var.owner}-${var.purpose}" : var.force_name
   bucket_visibility = !(var.public || var.static_website)
 }
 
 resource "aws_s3_bucket" "main_bucket" {
-  bucket = local.bucket_naming
+  bucket        = local.bucket_naming
   force_destroy = var.force_destroy
 
   tags = {
