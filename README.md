@@ -43,7 +43,7 @@ module "s3_bucket" {
   owner           = "wanda"
   purpose         = "tfg"
 
-  # Optional variables
+  # Custom variables
   versioning      = true
   public          = true
   force_destroy   = false
