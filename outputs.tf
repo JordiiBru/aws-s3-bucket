@@ -27,5 +27,5 @@ output "base_domain" {
 
 output "website_endpoint" {
   description = "The main S3 bucket website endpoint."
-  value       = aws_s3_bucket_website_configuration.bucket_statics.website_endpoint
+  value       = aws_s3_bucket_website_configuration.bucket_statics[0].website_endpoint
 }
