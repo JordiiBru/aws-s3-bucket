@@ -24,3 +24,8 @@ output "base_domain" {
   description = "The base domain name of the main S3 bucket."
   value       = aws_s3_bucket.main_bucket.bucket_domain_name
 }
+
+output "website_endpoint" {
+  description = "The main S3 bucket website endpoint."
+  value       = aws_s3_bucket_website_configuration.bucket_statics.website_endpoint
+}
