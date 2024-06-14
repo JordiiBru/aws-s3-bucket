@@ -1,8 +1,3 @@
-locals {
-  bucket_naming     = (var.force_name == "") ? "${var.stage}-${var.owner}-${var.purpose}" : var.force_name
-  bucket_visibility = !(var.public || var.static_website)
-}
-
 resource "aws_s3_bucket" "main_bucket" {
   bucket        = local.bucket_naming
   force_destroy = var.force_destroy
@@ -14,7 +9,6 @@ resource "aws_s3_bucket" "main_bucket" {
   }
 }
 
-# access block
 resource "aws_s3_bucket_public_access_block" "bucket_access_block" {
   bucket = aws_s3_bucket.main_bucket.id
 
@@ -24,7 +18,6 @@ resource "aws_s3_bucket_public_access_block" "bucket_access_block" {
   restrict_public_buckets = local.bucket_visibility
 }
 
-# versioning
 resource "aws_s3_bucket_versioning" "bucket_versioning" {
   count = var.versioning ? 1 : 0
 
@@ -35,7 +28,6 @@ resource "aws_s3_bucket_versioning" "bucket_versioning" {
   }
 }
 
-# policy
 resource "aws_s3_bucket_policy" "bucket_policy_for_static_website" {
   count = var.static_website ? 1 : 0
 
@@ -60,7 +52,6 @@ data "aws_iam_policy_document" "default_permissions" {
   }
 }
 
-# static website config
 resource "aws_s3_bucket_website_configuration" "bucket_statics" {
   count = var.static_website ? 1 : 0
 

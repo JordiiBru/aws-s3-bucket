@@ -1,4 +1,4 @@
-# REQUIRED VARIABLES
+# COMMON VARIABLES
 
 variable "stage" {
   description = "The stage of development (e.g., test, dev, staging, prod)."

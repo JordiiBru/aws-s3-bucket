@@ -1,14 +1,14 @@
 module "s3_bucket" {
   source = "../"
 
-  # Required variables
+  # Comomon variables
   stage   = "test"
   owner   = "wanda"
   purpose = "tfg"
 
   # Custom variables
-  versioning     = true
-  public         = true
+  versioning     = false
+  public         = false
   force_destroy  = false
-  static_website = true
+  static_website = false
 }
