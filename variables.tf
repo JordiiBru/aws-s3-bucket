@@ -22,7 +22,7 @@ variable "purpose" {
 }
 
 variable "owner" {
-  description = "Enable versioning on the S3 bucket. Set to true to enable."
+  description = "The owner of the deployed infrastructure."
   type        = string
   default     = null
 
@@ -35,7 +35,7 @@ variable "owner" {
 # CUSTOM VARIABLES
 
 variable "versioning" {
-  description = "Enable versioning on the bucket."
+  description = "Whether to configure the S3 bucket versioning state."
   type        = bool
   default     = false
 }
@@ -47,19 +47,19 @@ variable "force_name" {
 }
 
 variable "public" {
-  description = "Make the S3 bucket public. Must be true for static website hosting."
+  description = "Whether to make the S3 bucket public. Must be true for static website hosting."
   type        = bool
   default     = false
 }
 
 variable "force_destroy" {
-  description = "Allow the destruction of the S3 bucket even if it contains objects."
+  description = "Whether to delete all objects from the bucket when the bucket is destroyed."
   type        = bool
   default     = true
 }
 
 variable "static_website" {
-  description = "Configure the S3 bucket to host a static website."
+  description = "Whether to configure the S3 bucket to host a static website."
   type        = bool
   default     = false
 }
