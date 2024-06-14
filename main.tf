@@ -33,6 +33,8 @@ resource "aws_s3_bucket_policy" "bucket_policy_for_static_website" {
 
   bucket = aws_s3_bucket.main_bucket.id
   policy = data.aws_iam_policy_document.default_permissions.json
+
+  depends_on = [ aws_s3_bucket_public_access_block.bucket_access_block ]
 }
 
 data "aws_iam_policy_document" "default_permissions" {
